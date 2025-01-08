@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Nuevo Cliente</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom styles for this template -->
+	<link href="/css/starter-template.css" rel="stylesheet">
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/list">Clientes</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/list">Inicio</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="">Nuevo Cliente</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+<br><br><br><br>
+	<main role="main" class="container">
+
+		<div class="starter-template">
+			<h1>Editar Cliente</h1><br>
+		</div>
+
+		<div class="row">
+			<div class="col-md-offset-2 col-md-8">
+				<form method="post" th:action="@{/cliente/{id}/editar(id=${cliente.id})}" th:object="${cliente}">
+                    <!-- Campo para el ID (puede estar oculto) -->
+                    <input type="hidden" th:field="*{id}" />
+                    
+                    <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" th:field="*{apellido}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" th:field="*{email}" />
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen">Imágen</label>
+                        <input type="file" class="form-control" id="imagen" th:field="*{imagen}" />
+                    </div>
+                    <!-- Otros campos del formulario -->
+                    
+                    <button type="submit" class="btn btn-primary" onclick="return validarFormulario()">Guardar Cambios</button>
+                </form>
+			</div>
+		</div>
+
+	</main><!-- /.container -->
+
+	<!-- Bootstrap core JavaScript -->
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+	<script>
+		function validarNombre() {
+			var nombre = document.getElementById("nombre").value.trim();
+			var nombreError = document.getElementById("nombreError");
+
+			if (nombre === "") {
+				nombreError.style.display = "block";
+				return false;
+			}
+
+			nombreError.style.display = "none";
+			return true;
+		}
+
+		function validarEmail() {
+			var email = document.getElementById("email").value.trim();
+			var emailError = document.getElementById("emailError");
+
+			if (email === "") {
+				emailError.style.display = "block";
+				return false;
+			}
+
+			emailError.style.display = "none";
+			return true;
+		}
+
+		function validarFormulario() {
+			var isValid = true;
+
+			isValid = validarNombre() && isValid;
+			isValid = validarEmail() && isValid;
+
+			return isValid;
+		}
+	</script>
+</body>
+
+</html>
